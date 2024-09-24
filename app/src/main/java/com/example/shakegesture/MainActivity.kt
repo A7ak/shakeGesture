@@ -7,6 +7,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var shakeDetector: ShakeDetector
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -16,5 +21,18 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        shakeDetector = ShakeDetector(this)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        shakeDetector.start()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        shakeDetector.stop()
     }
 }
